@@ -1,0 +1,85 @@
+{% extends "FDASiteBundle::layout.html.twig" %}
+
+{% block title %}FAQ - {{ parent() }}{% endblock %}
+
+{% block description %}"FAQ femmes d'anim"{% endblock %}
+
+{% block body %}
+
+{% set faq = [
+{"question": "Pourquoi ce site ne traite-t-il que des femmes?", 
+"réponse": "<p>Partant du constat que les créatrices étaient très peu référencées sur internet, nous avons décidé de leur consacrer ce site pour leur donner de la visibilité.</p>"}
+
+,{"question": "Je souhaiterai être référencée sur ce site/Je veux intégrer l'équipe de rédaction.", 
+"réponse": "<p>Il vous suffit de vous <a href='" ~ path('fos_user_registration_register') ~ "'>inscrire</a> </p>
+		<p>Il vous sera alors possible de créer une fiche via l'onglet \"contributeur\" situé dans le bandeau en tête du site</p>"}
+		
+,{"question": "Je ne parviens pas à modifier une fiche bien que je fasse partie de l'équipe de rédaction. ", 
+"réponse": "<p>C'est parfaitement normal, chaque fiche appartient à la personne qui l'a créée afin que chacun reste propriétaire de son travail et ne pas créer de conflit. 
+		Vous ne pouvez éditer que vos proches fiches et personne ne viendra éditer les votres.</p>
+		<p>Cependant, il est possible de faire une remarque ou de porter une réclamation sur une fiche que vous ne possédez pas en nous envoyant un mail <a href='mailto:" ~  twig_admin_mail  ~ "'>" ~  twig_admin_mail  ~ "</a></p>
+		<p>La fiche pourra vous être réattribuée ou être éditée par un administrateur selon les cas.</p>"}
+		
+,{"question": "Je suis référencée sur le site mais ne souhaite pas/plus l'être.", 
+"réponse": "<p>Vous pouvez demander le retrait de votre fiche en nous envoyant un mail <a href='mailto:" ~  twig_admin_mail  ~ "'>" ~  twig_admin_mail  ~ "</a></p>
+		Votre demande sera traitée dans les meilleurs delais.</p>
+		<p> Nous pouvons également rendre la fiche inacessible au publique si vous souhaitez la réintégrer plus tard</p>"}
+		
+,{"question": "J'ai créé une fiche mais elle est marquée \"non publiée\" et n'est pas visible pour les autres.", 
+"réponse": "<p>Nous sommes tenus d'effectuer un controle sur les fiches produites par nos membres avant de les publier.</p>
+		<p>Lorsque vous avez terminé votre fiche, utilisez le lien \"demander la publication\" à gauche de votre fiche. Votre demande sera traitée dans les meilleurs délais.</p>
+		<p>N'abusez pas de ce bouton. En cas de doute, contactez nous sur <a href='mailto:" ~  twig_admin_mail  ~ "'>" ~  twig_admin_mail  ~ "</a>.
+		<p>Notez bien que si vous éditez une fiche déjà publiée, elle sera automatiquement dépubliée et il vous faudra refaire une demande</p>"}
+		
+,{"question": "Comment puis-je savoir si j'ai été intégré à l'équipe de rédaction?", 
+"réponse": "<p>Vous pouvez vous en assurer tout simplement en vérifiant la présence d'un onglet \"contributeur\" dans le bandeau tout en haut du site.</p>
+		<p>Cet onglet vous permettra d'ailleurs de créer une fiche</p>"}
+		
+,{"question": "Je ne parviens pas à créer une fiche.", 
+"réponse": "<p>Assurez vous que vous faites partie de l'équipe de rédaction. Si c'est le cas, vérifiez qu'il n'existe pas déjà une ébauche de la fiche que vous voulez créer.</p>
+		<p>Vous ne pouvez créer une fiche sur une personne déjà référencée.</p>"}
+]%}
+
+<section>
+<h1>FAQ</h1>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading1">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+          Qu'est ce que ce site?
+        </a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading1">
+      <div class="panel-body">
+        <p>Femme d'anim est un site gratuit qui référence toutes les femmes travaillant dans le monde de l'animation. 
+		C'est une base collaborative où chacun peut écrire sa propre fiche ou bien la fiche d'une connaissance et partager son travail.</p>
+		<p>Le site référence également un certain nombre de liens utiles sous la section ressource</p>
+      </div>
+    </div>
+  </div>
+  
+  {% set i = 2 %}
+  {% for iteration in faq %}
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="heading{{ i }}">
+      <h4 class="panel-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ i }}" aria-expanded="false" aria-controls="collapse{{ i }}">
+          {{ iteration.question | raw }}
+        </a>
+      </h4>
+    </div>
+    <div id="collapse{{ i }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ i }}">
+      <div class="panel-body">
+        {{ iteration.réponse | raw }}
+      </div>
+    </div>
+  </div>
+  {% set i = i + 1 %}
+  {% endfor %}
+ </div>
+</section>
+
+
+{% endblock %}

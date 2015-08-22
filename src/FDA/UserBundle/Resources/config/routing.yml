@@ -1,0 +1,15 @@
+fda_user_homepage:
+    path:     /
+    defaults: { _controller: FDAUserBundle:User:index }
+
+fda_user_promote:
+    path:     /promote/{id}
+    defaults: { _controller: FDAUserBundle:User:promote }
+    requirements:
+        id: \d+
+
+fda_user_demote:
+    path:     /demote/{id}
+    defaults: { _controller: FDAUserBundle:User:demote }
+    requirements:
+        id: \d+

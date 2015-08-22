@@ -1,0 +1,15 @@
+{% extends "FDASiteBundle::layout.html.twig" %}
+
+{% block title %}Contacts - {{ parent() }}{% endblock %}
+
+{% block description %}"Contacts femmes d'anim"{% endblock %}
+
+{% block body %}
+<section>
+<h1> Contact </h1>
+<p>Si vous souhaitez nous contacter pour toute demande de renseignement ou un problème technique, envoyez un mail à <a href="mailto:{{ twig_admin_mail }}">{{ twig_admin_mail }}</a>, nous vous répondrons dès que possible.</p>
+<p>Une créatrice manque? Il vous est possible de contribuer et de créer sa fiche.<br />
+Pour cela il vous faut <a href="{{ path('fos_user_registration_register') }}">créer un compte</a> avec une email valide
+puis vous présenter à <a href="mailto:{{ twig_admin_mail }}">{{ twig_admin_mail }}</a> en précisant bien votre nom utilisateur et votre mail pour que vous puissiez être intégré à l'équipe de rédaction.</p>
+</section>
+{% endblock %}

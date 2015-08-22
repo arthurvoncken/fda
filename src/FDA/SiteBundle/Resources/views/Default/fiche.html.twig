@@ -1,0 +1,170 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}{{ fiche.titre }} - {{ parent() }}{% endblock %}
+
+{% block description %}"La fiche de {{ fiche.titre }}"{% endblock %}
+
+{% block image_fb %}{% if fiche.imageRef.webPath is defined %}{{ asset(fiche.imageRef.webPath) }}{% endif %}{% endblock %}
+
+{% block menu %}
+	<ul>
+	{% if (is_granted("IS_AUTHENTICATED_REMEMBERED")) %}
+		{% set test_auteur = ';' ~ fiche.auteur ~ ';' %}
+		{% if ((((';' ~ app.user.username ~ ';') in test_auteur) and (is_granted('ROLE_EDITOR'))) or (is_granted('ROLE_ADMIN'))) %}
+			<li><a href="{{ path('fda_site_modifier_fiche', {'id': fiche.id}) }}">Modifier la fiche</a></li>
+		{% if (fiche.published == false) %}
+			<li><a href="{{ path('fda_site_ask_publish', {'id': fiche.id}) }}">Demander la publication</a></li>
+		{% endif %}
+		{% endif %}
+		{% if (is_granted('ROLE_ADMIN')) %}
+			{% if (fiche.published == false) %}
+				<li><a href="{{ path('fda_site_publier_fiche', {'id': fiche.id}) }}">Publier la fiche</a></li>
+			{% else %}
+				<li><a href="{{ path('fda_site_depublier_fiche', {'id': fiche.id}) }}">Dépublier la fiche</a></li>
+			{% endif %}
+			<li><a href="{{ path('fda_site_reaffect_fiche', {'id': fiche.id}) }}">Reaffecter la fiche</a></li>
+			<li><a href="{{ path('fda_site_supprimer_fiche', {'id': fiche.id}) }}">Supprimer la fiche</a></li>
+		{% endif %}
+	{% endif %}
+	</ul>
+{% endblock %}
+
+
+{% block body %}
+
+<div id="fb-root"></div>
+
+	{% for message in app.session.flashbag.get('info') %}
+		<div class="alert alert-success">
+		<p>{{ message }}</p>
+		</div>
+	{% endfor %}
+	{% if fiche.imageTitre != null %}
+	<div class="row">
+		<div class="col-lg-12">
+			<img src="{{ asset(fiche.imageTitre.webPath) }}" alt="{{ fiche.imageTitre.alt }}" />
+		</div>
+	</div>
+	{% endif %}
+	<div id="fiche-title" class="row">
+		<div class="col-lg-12">
+		<h2 class="pull-right">{{ fiche.titre }}</h2>
+		</div>
+	</div>
+	<div id="fiche-categories" class="row">
+		<div class="col-lg-12">
+		<span class="pull-right redtext">
+			{% for categorie in fiche.categories %}
+				{% if loop.last %}
+					{{ categorie.name }}
+				{% else %}
+					{{ categorie.name }} /
+				{% endif %}
+			{% endfor %}
+		</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<p>{{ fiche.bio | raw }}</p>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			{% if fiche.image1 != null %}
+				<div class="col-lg-4 col-mg-4">
+					<a data-toggle="modal" data-target=".lightbox" data-src="{{ asset(fiche.image1.webPath) }}" data-alt="{{ fiche.image1.alt }}"><img src="{{ asset(fiche.image1.webPath) }}" alt="{{ fiche.image1.alt }}" /></a>
+				</div>
+			{% endif %}
+			{% if fiche.image2 != null %}
+				<div class="col-lg-4 col-mg-4">
+					<a data-toggle="modal" data-target=".lightbox" data-src="{{ asset(fiche.image2.webPath) }}" data-alt="{{ fiche.image2.alt }}"><img src="{{ asset(fiche.image2.webPath) }}" alt="{{ fiche.image2.alt }}" /></a>
+				</div>
+			{% endif %}
+			{% if fiche.image3 != null %}
+				<div class="col-lg-4 col-mg-4">
+					<a data-toggle="modal" data-target=".lightbox" data-src="{{ asset(fiche.image3.webPath) }}" data-alt="{{ fiche.image3.alt }}"><img src="{{ asset(fiche.image3.webPath) }}" alt="{{ fiche.image3.alt }}" /></a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="modal lightbox myfade" id="lightbox" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<a type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="{{ asset('images/close.png') }}" alt="close" /></span></a>
+				<img class="modal-image" src="#" alt="" />
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-12">
+			<p>{{ fiche.contenu | raw }}</p>
+		</div>
+	</div>	
+	{% if fiche.imageRef != null %}
+		<div class="row">
+			<div class="col-lg-12">
+				<img src="{{ asset(fiche.imageRef.webPath) }}" alt="{{ fiche.imageRef.alt }}" />
+			</div>
+		</div>	
+	{% endif %}
+	<div class="row">
+		<div class="col-lg-12">
+			<h3>Travaux en ligne : </h3>
+			<ul>
+				{% for url in fiche.liens %}
+				<li><a href="{{ url.url }}" >{{ url.alt }}</a></li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	
+	<a href="{{ path('fda_site_homepage') }}">Retour vers l'accueil</a>
+	
+	<hr />
+	<div class="row">
+	<div class="col-xs-12">
+	<p>Partagez</p>
+	</div>
+	<div class="col-xs-12 space-bottom">
+	<div class="fb-like" data-href="{{ app.request.uri }}" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+	</div>
+	<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+	<div class="col-xs-12">
+	<div class="g-plusone" data-annotation="inline" data-width="300" data-href="{{ app.request.uri }}"></div>
+	</div>
+	<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = 'https://apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+	<!--<iframe src="http://www.facebook.com/plugins/like.php?href={{ app.request.uri }}&layout=box_count&show_faces=true&width=65&action=like&font=arial&colorscheme=light&height=65" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:65px; height:65px; margin-top:3px;" allowTransparency="true"></iframe>
+	<g:plusone size="tall"></g:plusone>-->
+
+	
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
+<script type="text/javascript">
+$('#lightbox').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget); // Button that triggered the modal
+  var src = button.data('src'); // Extract info from data-* attributes
+  var alt = button.data('alt'); // Extract info from data-* attributes
+  var modal = $(this);
+  modal.find('.modal-image').attr("src", src);
+  modal.find('.modal-image').attr("alt", alt);
+})
+</script>
+
+
+{% endblock %}

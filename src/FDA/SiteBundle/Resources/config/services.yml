@@ -1,0 +1,7 @@
+services:
+    fda_site.stripaccent:
+        class: FDA\SiteBundle\Twig\StripAccentExtension
+
+#    fda_site.example:
+#        class: FDA\SiteBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

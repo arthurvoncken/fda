@@ -1,0 +1,11 @@
+parameters:
+    mail_admin: arthurvoncken@gmail.com
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: symfony
+    database_user: root
+    database_password: null
+    mailer_user: arthurvoncken@gmail.com
+    mailer_password: predator2
+    mailer_transport: gmail

@@ -1,0 +1,14 @@
+parameters:
+    mail_admin: admin@femmesdanim.fr
+    database_driver: pdo_mysql
+    database_host: femmesdaszark.mysql.db
+    database_port: null
+    database_name: femmesdaszark
+    database_user: femmesdaszark
+    database_password: 8yLs8qK9yAXm
+    
+    mailer_transport: smtp
+    mailer_host: smtp.femmesdanim.fr
+    mailer_user: admin@femmesdanim.fr
+    mailer_password: predator2
+    mailer_port: 587

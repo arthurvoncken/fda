@@ -1,0 +1,19 @@
+fda_ressource_homepage:
+    path:     /
+    defaults: { _controller: FDARessourceBundle:Ressource:index }
+
+fda_ressource_modifier_categ:
+    path:     /admin/edit_res_categ/{id}
+    defaults: { _controller: FDARessourceBundle:Ressource:modifierCateg }
+    requirements:
+        id: \d+
+
+fda_ressource_ajouter_categ:
+    path:     /admin/add_res_categ
+    defaults: { _controller: FDARessourceBundle:Ressource:ajouterCateg }
+
+fda_ressource_supprimer_categ:
+    path:     /admin/del_res_categ/{id}
+    defaults: { _controller: FDARessourceBundle:Ressource:supprimerCateg }
+    requirements:
+        id: \d+

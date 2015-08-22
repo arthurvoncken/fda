@@ -1,0 +1,54 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+<div class="well">
+
+{{ form_start(form, {'attr': {'class': 'form-vertical'}}) }}
+{{ form_errors(form) }}
+
+<div class='form-group'>
+	{{ form_label(form.name, "Catégorie", {'label_attr': {'class': 'control-label'}}) }}
+	{{ form_errors(form.name) }}
+	<div>
+		{{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+	</div>
+</div>
+
+
+
+<div class='form-group'>
+	{{ form_label(form.liens, "Travaux") }}
+	{{ form_errors(form.liens) }}
+	<div>
+		{{ form_widget(form.liens) }}
+	</div>
+</div>
+
+{{ form_widget(form) }}
+<input type="submit" class="btn btn-primary" />
+{{ form_end(form) }}
+</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('js/gestion_collection.js') }}" ></script>
+<script type="text/javascript">
+
+  $(document).ready(function() {
+	var $container = $('div#fda_ressourcebundle_rescateg_liens');
+	gestion_collection($container)
+  });
+ 
+</script>
+{% endblock %}
+
+{% block menu %}
+<ul>
+	{% if categ.id != null %}
+	<li><a href="{{ path('fda_ressource_supprimer_categ', {'id': categ.id}) }}">Supprimer Catégorie</a></li>
+	{% endif %}
+</ul>
+{% endblock %}

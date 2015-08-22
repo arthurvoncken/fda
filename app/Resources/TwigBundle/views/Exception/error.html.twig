@@ -1,0 +1,12 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+FDA - Une erreur s'est produite : {{ status_text }}
+{% endblock %}
+{% block body %}
+    <h1>{{ status_code }}</h1>
+	<h2>Le serveur a retourné une "{{ status_code }} {{ status_text }}".</h2>
+    <div>
+      <a href="{{ path('fda_site_homepage') }}">Retour sur la home</a>
+    </div>
+{% endblock %}

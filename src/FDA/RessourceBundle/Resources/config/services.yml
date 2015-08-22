@@ -1,0 +1,4 @@
+services:
+#    fda_ressource.example:
+#        class: FDA\RessourceBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

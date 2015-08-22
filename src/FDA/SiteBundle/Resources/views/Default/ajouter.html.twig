@@ -1,0 +1,38 @@
+{% extends "layout.html.twig" %}
+{% block body %}
+<h3>Créer une fiche</h3>
+{% include "FDASiteBundle:Default:form.html.twig" %}
+
+<a href="{{ path('fda_site_homepage', {'id': fiche.id}) }}">Retour vers l'accueil</a>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script src="{{ asset('js/gestion_collection.js') }}"></script>
+<script src="{{ asset('js/thumbnail_edit.js') }}"></script>
+<script type="text/javascript">
+
+  $(document).ready(function() {
+	var $container = $('div#fda_sitebundle_fiche_liens');
+	gestion_collection($container)
+  
+ 
+// sur chaque champ file, j'ajoute un evt onchange qui sera chargé de mettre à jour la thumbnail associée à l'upload
+document.querySelector('#fda_sitebundle_fiche_image_titre_file').addEventListener('change', function() {
+	makeThumbnailIn(this.files[0], "preview_image_titre");
+}, false);
+document.querySelector('#fda_sitebundle_fiche_image_ref_file').addEventListener('change', function() {
+	makeThumbnailIn(this.files[0], "preview_image_ref");
+}, false);
+document.querySelector('#fda_sitebundle_fiche_image1_file').addEventListener('change', function() {
+	makeThumbnailIn(this.files[0], "preview_image1");
+}, false);
+document.querySelector('#fda_sitebundle_fiche_image2_file').addEventListener('change', function() {
+	makeThumbnailIn(this.files[0], "preview_image2");
+}, false);
+document.querySelector('#fda_sitebundle_fiche_image3_file').addEventListener('change', function() {
+	makeThumbnailIn(this.files[0], "preview_image3");
+}, false);
+});	   
+</script>
+{% endblock %}

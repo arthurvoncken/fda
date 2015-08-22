@@ -1,0 +1,69 @@
+{% extends "FDASiteBundle::layout.html.twig" %}
+
+{% block edito %}
+	<div class="row" id="edito">
+		<div class="col-lg-3 col-mg-4 col-sm-5" id="edito_gauche">	
+			<p><b>Femmes d’Anim</b> est né du désir de mieux connaître le travail des femmes évoluant dans le milieu de l’animation française. Une curiosité positive, motivée par le peu
+			d’éléments disponibles sur le sujet. Notre but est de montrer la multiplicité des parcours possibles et de partager nos découvertes avec vous. </p>
+			<p><b>Femmes d’Anim</b> est un site participatif. Si vous voulez nous aider, merci de vous créer un compte et de consulter la <a href="{{ path('fda_site_faq') }}">FAQ</a></p>
+		</div>
+		<div class="col-lg-9 col-mg-8 col-sm-7" id="edito_droit">
+			<div class="row">
+				<img id="img_decouvrir" src="{{ asset('images/decouvrir.jpg') }}" alt="Découvrir" />
+			</div>
+			<div class="row" id="bloc_decouvrir">
+				{% for fiche in mySelec %}
+					<div class="col-lg-4 col-mg-4 col-sm-4 col-xs-4">
+						{% if fiche.imageRef != null %}
+							<a href="{{ path('fda_site_fiche', {'id': fiche.id, 'slug' : fiche.titre|stripaccent|url_encode}) }}"><img src="{{ asset(fiche.imageRef.webPath) | imagine_filter('my_thumb') }}" alt="{{ fiche.titre }}" ></a>
+						{% endif %}		
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block body %}
+		{% for message in app.session.flashbag.get('info') %}
+		<div class="alert alert-success">
+		<p>{{ message }}</p>
+		</div>
+		{% endfor %}
+	{% if (fiches == null) %}
+		<div>Désolé, il n'y a encore aucune créatrice correspondante à votre recherche sur notre site.</div>
+	{% endif %}
+	{% set alpha = '' %}
+	<div>
+	{% for fiche in fiches %}
+		{% if fiche.titre|first|lower != alpha %}
+			{% set alpha = fiche.titre|first|lower %}
+			</div>
+			<span class="redtext large">{{ alpha|upper }}</span>
+			<div class="row">
+		{% endif %}
+		<div class="col-lg-3 col-mg-4 col-sm-6 col-xs-6 vignette">
+			{% if fiche.imageRef != null %}
+				<a href="{{ path('fda_site_fiche', {'id': fiche.id, 'slug' : fiche.titre|stripaccent|url_encode}) }}"><img src="{{ asset(fiche.imageRef.webPath) | imagine_filter('my_thumb') }}" alt="{{ fiche.titre }}" ></a>
+			{% endif %}
+			<a href="{{ path('fda_site_fiche', {'id': fiche.id, 'slug' : fiche.titre|stripaccent|url_encode}) }}">{{ fiche.titre}}</a> {% if fiche.published == false %}non publié{% endif %}
+		</div>
+	{% endfor %}
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript">
+$( window ).load(function() {
+    var div1=$("#edito_gauche").height();
+    var div2=$("#edito_droit").height();
+    if (div1>(div2-30)) {$("#bloc_decouvrir").height(div1 - 121);}
+    else 
+	{
+		if (div2 < 400)
+			$("#edito_gauche").height(div2 - 30);
+	}
+});
+</script>
+{% endblock %}

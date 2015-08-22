@@ -1,0 +1,57 @@
+fda_site_homepage:
+    path:     /
+    defaults: { _controller: FDASiteBundle:Default:index }
+
+fda_site_fiche:
+    path:     /fiche/{id}/{slug}
+    defaults: { _controller: FDASiteBundle:Default:voirFiche, slug:'' }
+    requirements:
+        id: \d+
+
+fda_site_modifier_fiche:
+    path:     /edit_fiche/{id}
+    defaults: { _controller: FDASiteBundle:Default:modifierFiche }
+    requirements:
+        id: \d+
+
+fda_site_ajouter_fiche:
+    path:     /add_fiche
+    defaults: { _controller: FDASiteBundle:Default:ajouterFiche }
+
+fda_site_publier_fiche:
+    path:     /admin/publier/{id}
+    defaults: { _controller: FDASiteBundle:Default:publierFiche }
+    requirements:
+        id: \d+
+
+fda_site_depublier_fiche:
+    path:     /admin/depublier/{id}
+    defaults: { _controller: FDASiteBundle:Default:depublierFiche }
+    requirements:
+        id: \d+
+
+fda_site_supprimer_fiche:
+    path:     /admin/del_fiche/{id}
+    defaults: { _controller: FDASiteBundle:Default:supprimerFiche }
+    requirements:
+        id: \d+
+
+fda_site_ask_publish:
+    path:     /ask_publish/{id}
+    defaults: { _controller: FDASiteBundle:Default:askPublish }
+    requirements:
+        id: \d+
+
+fda_site_reaffect_fiche:
+    path:     /admin/reaffect/{id}
+    defaults: { _controller: FDASiteBundle:Default:reaffect }
+    requirements:
+        id: \d+
+
+fda_site_contact:
+    path:     /contact
+    defaults: { _controller: FDASiteBundle:Default:contact }
+
+fda_site_faq:
+    path:     /faq
+    defaults: { _controller: FDASiteBundle:Default:faq }

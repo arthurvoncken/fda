@@ -1,0 +1,12 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+FDA - Une erreur s'est produite : {{ status_text }}
+{% endblock %}
+{% block body %}
+    <h1>Erreur 404</h1>
+	<h2>La page demandée n'existe pas.</h2>
+    <div>
+      <a href="{{ path('fda_site_homepage') }}">Retour sur la home</a>
+    </div>
+{% endblock %}

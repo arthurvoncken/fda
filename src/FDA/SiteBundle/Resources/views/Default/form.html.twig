@@ -1,0 +1,142 @@
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+<div class="well">
+
+{{ form_start(form, {'attr': {'class': 'form-vertical'}}) }}
+	
+{{ form_errors(form) }}
+
+<div class='form-group'>
+	{{ form_label(form.titre, "Nom et Prénom de l'artiste", {'label_attr': {'class': 'control-label'}}) }}	
+	{{ form_errors(form.titre) }}	
+	<div>
+		{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+	</div>
+</div>
+
+<img id="preview_image_titre"
+{% if fiche.imageTitre != null %}
+  src="{{ asset(fiche.imageTitre.webPath) }}"
+  alt="{{ fiche.imageTitre.alt }}"
+{% else %}
+	src="#"
+	alt=""
+{% endif %}
+/><br />
+{{ form_label(form.image_titre, "Portrait de la créatrice : ") }}
+{{ form_errors(form.image_titre) }}
+{{ form_widget(form.image_titre) }}
+<p class="help-block">Format recquis : 810x300, 500ko max</p>
+
+
+
+<div class='form-group'>
+	{{ form_row(form.bio) }}
+	<p class="help-block">Il est possible d'agrandir la zone de saisie en l'étirant à votre convenance</p>
+</div>
+
+
+
+<div class='form-group'>
+<label class="control-label">Les 3 miniatures habillant l'article : </label>
+<div class="row">
+<div class="col-lg-4 col-mg-4">
+<img id="preview_image1"
+{% if fiche.image1 != null %}
+  src="{{ asset(fiche.image1.webPath) }}"
+  alt="{{ fiche.image1.alt }}"
+{% else %}
+	src="#"
+	alt=""
+{% endif %}
+/>
+</div>
+<div class="col-lg-4 col-mg-4">
+<img id="preview_image2"
+{% if fiche.image2 != null %}
+  src="{{ asset(fiche.image2.webPath) }}"
+  alt="{{ fiche.image2.alt }}"
+{% else %}
+	src="#"
+	alt=""
+{% endif %}
+/>
+</div>
+<div class="col-lg-4 col-mg-4">
+<img id="preview_image3"
+{% if fiche.image3 != null %}
+  src="{{ asset(fiche.image3.webPath) }}"
+  alt="{{ fiche.image3.alt }}"
+{% else %}
+	src="#"
+	alt=""
+{% endif %}
+/>
+</div>
+</div>
+</div>
+<div class="col-lg-4">
+{{ form_label(form.image1, "Image 1 :")}}	
+{{ form_errors(form.image1) }}
+{{ form_widget(form.image1) }}
+<p class="help-block">Format recquis : 960x540, 500ko max</p>
+</div>
+<div class="col-lg-4">
+{{ form_label(form.image2, "Image 2 :")}}
+{{ form_errors(form.image2) }}
+{{ form_widget(form.image2) }}
+<p class="help-block">Format recquis : 960x540, 500ko max</p>
+</div>
+
+<div class="col-lg-4">
+{{ form_label(form.image3, "Image 3 :")}}
+{{ form_errors(form.image3) }}
+{{ form_widget(form.image3) }}
+<p class="help-block">Format recquis : 960x540, 500ko max</p>
+</div>
+
+
+
+<div class='form-group'>
+	{{ form_row(form.contenu) }}
+	<p class="help-block">Détaillez le parcours, les postes occupés, les projets...</p>
+	<p class="help-block">Il est possible d'agrandir la zone de saisie en l'étirant à votre convenance</p>
+</div>
+
+<img id="preview_image_ref"
+{% if fiche.imageRef != null %}
+  src="{{ asset(fiche.imageRef.webPath) }}"
+  alt="{{ fiche.imageRef.alt }}"
+{% else %}
+	src="#"
+	alt=""
+{% endif %}
+/><br />
+{{ form_label(form.image_ref, "Image de référence en pied d'article")}}
+{{ form_errors(form.image_ref) }}
+{{ form_widget(form.image_ref) }}
+<p class="help-block">Format recquis : 960x540, 500ko max</p>
+
+<div class='form-group'>
+	{{ form_label(form.liens, "Travaux :") }}
+	{{ form_errors(form.liens) }}
+	<p class="help-block">Il s'agit d'une liste de liens. Vous pouvez ajouter/supprimer/modifier autant de liens que voulu. <br />
+	Un lien se compose d'une "url" et du texte "alt" cliquable qui pointera vers l'url spécifiée.</p>
+	<div>
+		{{ form_widget(form.liens) }}
+	</div>
+</div>
+
+<div class='form-group'>
+	{{ form_label(form.categories, "Catégories :") }}
+	{{ form_errors(form.categories) }}
+	{{ form_widget(form.categories, {'attr': {'class': 'checkbox'}}) }}
+</div>
+
+{{ form_widget(form) }}
+<input type="submit" class="btn btn-primary" />
+{{ form_end(form) }}
+</div>
+
+
+
+

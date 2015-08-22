@@ -1,0 +1,6 @@
+services:
+    demo_user.registration_listener:
+        class: FDA\UserBundle\EventListener\RegistrationListener
+        arguments: []
+        tags:
+            - { name: kernel.event_subscriber }

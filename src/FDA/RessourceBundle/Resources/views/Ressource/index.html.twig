@@ -1,0 +1,47 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}Ressources - {{ parent() }}{% endblock %}
+
+{% block description %}"Liens divers autour des femmes et de l'animation"{% endblock %}
+
+{% block body %}
+	<section class="row">
+		{% for message in app.session.flashbag.get('info') %}
+		<div class="alert alert-success">
+		<p>{{ message }}</p>
+		</div>
+		{% endfor %}
+		{% for categ in categories %}
+			<section class="row">
+			<div class="col-lg-12">
+			
+				<h2>
+					{{ categ.name }}
+					{% if (is_granted("IS_AUTHENTICATED_REMEMBERED")) %}
+					{% if (is_granted('ROLE_ADMIN')) %}
+					<a href="{{ path('fda_ressource_modifier_categ', {'id': categ.id}) }}"><img class="picto" src="{{ asset('images/edit.png') }}" alt="Modifier Categorie" /></a>
+					<a href="{{ path('fda_ressource_supprimer_categ', {'id': categ.id}) }}"><img class="picto" src="{{ asset('images/delete.png') }}" alt="Supprimer Categorie" /></a>
+					{% endif %}
+					{% endif %}
+				</h2>
+				<ul>
+				{% for lien in categ.liens %}
+					<li><a href="{{ lien.url }}" >{{ lien.alt }}</a></li>
+				{% endfor %}
+				</ul>
+			</div>
+			</section>
+		{% endfor %}
+	</section>
+{% endblock %}
+	
+{% block menu %}
+	<ul>
+		<li><a href="{{ path('fda_site_homepage') }}">Retour sur les Fiches</a></li>
+		{% if (is_granted("IS_AUTHENTICATED_REMEMBERED")) %}
+		{% if (is_granted('ROLE_ADMIN')) %}
+			<li><a href="{{ path('fda_ressource_ajouter_categ') }}">Ajouter une Catégorie</a></li>
+		{% endif %}
+		{% endif %}
+	</ul>
+{% endblock %}

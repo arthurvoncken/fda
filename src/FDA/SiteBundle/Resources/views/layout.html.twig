@@ -1,0 +1,9 @@
+{% extends "layout.html.twig" %}
+
+{% block menu %}
+	{% if my_search is defined %}
+		{{ render(controller("FDASiteBundle:Default:Search", {'fiche': my_search})) }}
+	{% else %}
+		{{ render(controller("FDASiteBundle:Default:Search", {'fiche': null})) }}
+	{% endif %}
+{% endblock %}

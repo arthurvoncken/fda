@@ -1,0 +1,18 @@
+{% extends "layout.html.twig" %}
+{% block body %}
+<h3>Supprimer une catégorie</h3>
+<p>
+    Etes-vous certain de vouloir supprimer la catégorie "{{ categ.name }}" ?
+</p>
+
+<form action="{{ path('fda_ressource_supprimer_categ', {'id': categ.id}) }}" method="post">
+    <a href="{{ path('fda_ressource_homepage') }}" class="btn btn-default">
+      <i class="glyphicon glyphicon-chevron-left"></i>
+      Retour aux ressources
+    </a>
+    
+    <input type="submit" value="Supprimer" class="btn btn-danger" />
+    {# Ceci va générer le champ CSRF #}
+    {{ form_rest(form) }}
+</form>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "layout.html.twig" %}
+
+{% block body %}
+	<section class="col-lg-12">
+		<h1>Liste des utilisateurs</h1>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>Username</th>
+					<th>Mail</th>
+					<th>Role</th>
+					<th><th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<th>{{ user.username }}</th>
+						<th>{{ user.email }}</th>
+						<th>
+							{% set display_role = '' %}
+							{% for role in user.roles %}
+								{% if ((role == 'ROLE_EDITOR') and (display_role != 'admin')) %}
+									{% set display_role = 'contributeur' %}
+								{% endif %}
+								{% if (role == 'ROLE_ADMIN') %}
+									{% set display_role = 'admin' %}
+								{% endif %}
+							{% endfor %}
+							{{ display_role }}
+						</th>
+						<th>
+							{% if (display_role == '') %}
+								<a href="{{ path('fda_user_promote', {'id': user.id}) }}">passer editeur</a>
+							{% endif %}
+							{% if (display_role == 'contributeur') %}
+								<a href="{{ path('fda_user_demote', {'id': user.id}) }}">repasser utilisateur</a>
+							{% endif %}
+						</th>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</section>
+{% endblock %}

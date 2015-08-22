@@ -1,0 +1,133 @@
+body { 
+	padding-top: 70px; 
+}
+img {
+   width: 100%;
+}
+.redtext { 
+	color: #FF444D; 
+}
+
+.large {
+	font-size:  100px;
+}
+
+#edito_gauche {
+	background-color: #E6D5B6;
+	padding-top : 10px;
+	font-size:  14px;
+}
+
+#bloc_decouvrir {
+	background-color: #C89F82;
+	padding-top : 25px;
+	padding-bottom : 25px;
+	margin-top : 35px;
+	margin-left : 10px;
+	padding-left : 15px;
+	padding-right : 15px;
+}
+
+a {
+	color: #FF444D;
+}
+
+a:hover {
+	color: #C89F82
+}
+
+#img_decouvrir{
+	width: auto;
+}
+
+.picto{
+	height : 20px;
+	width : 20px;
+}
+
+.row{
+	margin-bottom: 20px;
+}
+
+.btn-primary {
+	background-color: #FF444D;
+	border-color: #FF444D;
+}
+
+.btn-primary:hover, .btn-primary:focus,  .btn-primary.focus, .btn-primary:active, .btn-primary:active{
+	background-color: #DD222B;
+	border-color: #DD222B;
+}
+
+.go_top{
+    background: url('/images/scroll.png') no-repeat;
+    display: none;
+    position: fixed;
+    width: 128px;            /* A régler selon votre image */
+    height: 128px;            /* A régler selon votre image */
+    bottom: 0;                /* A régler selon votre image */
+    right: 0;                /* A régler selon votre image */
+    text-indent: -9999px;
+}
+
+.go_top:focus {
+	outline: none;
+}
+
+.panel-default > .panel-heading {
+    color: #FFF;
+    background-color: #FF444D;
+    border-color: #DDD;
+}
+
+.panel-title {
+	font-weight: bold;
+}
+
+.footer{
+	color: #B78E71;
+	background-color: #E6D5B6;
+	margin-bottom : 10px;
+	padding-top : 5px;
+}
+
+#fiche-title {
+	margin-bottom: 0px;
+}
+
+#fiche-categories {
+	margin-bottom: 40px;
+}
+
+#menu_left img{
+	max-width: 300px;
+}
+
+.space-bottom {
+	margin-bottom: 10px;
+}
+
+
+.close {
+	margin-bottom: -33px;
+	margin-right : 3px;
+	margin-top : 3px;
+}
+
+.close img{
+	height: 30px;
+}
+
+
+.myfade.in{
+	animation: fadeInScale 1.2s ease-in-out;
+}
+
+@keyframes fadeInScale {
+  0% { transform: scale(0.6); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.vignette{
+	margin-top: 20px;
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content={% block description %}"Site collaboratif référencant les femmes travaillant dans le secteur de l'animation"{% endblock %}>
+	<meta name="keywords" content="femmes,animation">
+	
+	<title>{% block title %}Femmes d'anim{% endblock %}</title>
+	
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content="{{ app.request.schemeAndHttpHost }}{% block image_fb %}{{ asset('images/bandeau.jpg') }}{% endblock %}" />
+
+	{% block stylesheets %}
+		{# On charge le CSS de bootstrap #}
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="{{ asset('css/fda.css') }}" type="text/css" />
+	{% endblock %}
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		ga('create', 'UA-63217897-1', 'auto');
+		ga('send', 'pageview');
+
+	</script>
+</head>
+
+<body>
+
+	<nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{ path('fda_site_homepage') }}">Femmes d'anim</a>
+        </div>
+		
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+				<li{% if (app.request.attributes.get('_route') == 'fda_site_homepage') %} class="active"{% endif %}><a href="{{ path('fda_site_homepage') }}">Home</a></li>
+				<li{% if (app.request.attributes.get('_route') == 'fda_ressource_homepage') %} class="active"{% endif %}><a href="{{ path('fda_ressource_homepage') }}">Ressources</a></li>
+				{% if app.user is not null and is_granted('ROLE_ADMIN') %}
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administration <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="{{ path('fda_user_homepage') }}">Gestion utilisateurs</a></li>
+						<li><a href="{{ path('fda_site_ajouter_fiche') }}">Ajouter une fiche</a></li>
+						<li><a href="{{ path('fda_ressource_ajouter_categ') }}">Ajouter une catégorie ressources</a></li>
+					</ul>
+				</li>
+				{% endif %}
+				{% if app.user is not null and is_granted('ROLE_EDITOR') and not is_granted('ROLE_ADMIN') %}
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Contributeur <span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="{{ path('fda_site_ajouter_fiche') }}">Ajouter une fiche</a></li>
+						<li><a href="{{ path('fda_site_faq') }}"><b>FAQ</b></a></li>
+					</ul>
+				</li>
+				{% endif %}
+			</ul>
+        
+		
+		
+        <ul class="nav navbar-nav navbar-right">
+			<li>
+		{% if app.user is not null and is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+			<p class="navbar-text navbar-right">Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}" class="navbar-link">Déconnexion</a></p>
+		{% else %}
+			<a href="{{ path('fos_user_security_login') }}">Connexion</a>
+		{% endif %}
+			</li>
+        </ul>
+		</div>
+      </div>
+	</nav>
+
+
+
+	<div class="container">
+		<header class="row" id="header">
+			<a href="{{ path('fda_site_homepage') }}"><img src="{{ asset('images/bandeau.jpg') }}" alt="Femmes d'anim" /></a>
+		</header>
+		{% block edito %}
+		{% endblock %}
+		<div class="row">
+			<nav class="col-lg-3 col-mg-4 col-sm-5" id="menu_left">
+				{% block menu %}
+				{% endblock %}
+				<a href="{{ path('fda_ressource_homepage') }}"><img src="{{ asset('images/ressources.gif') }}" alt="Ressources" /></a>
+			</nav>
+			<div id="content" class="col-lg-9 col-mg-8 col-sm-7">
+				{% block body %}
+				{% endblock %}
+			</div>
+		</div>
+    <hr>
+
+    <footer>
+		<div class="col-lg-12 footer">
+			<a href="{{ path('fda_site_contact') }}"><b>Contact</b></a> - 
+			<a href="{{ path('fda_site_faq') }}"><b>FAQ</b></a>
+			<div>
+			<p>Un site réalisé par Arthur Voncken sur une initiative de Florentine Grelier &copy; 2015</p>
+			</div>
+		</div>
+    </footer>
+	<a href="#" class="go_top">Remonter</a>
+	</div>
+
+	{% block javascripts %}
+    {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	
+	
+	<script type="text/javascript">
+	$(document).ready(function(){
+		// Condition d'affichage du bouton
+		$(window).scroll(function(){
+			if ($(this).scrollTop() > 100){
+				$('.go_top').fadeIn();
+			}
+			else{
+				$('.go_top').fadeOut();
+			}
+		});
+		// Evenement au clic
+		$('.go_top').click(function(){
+			$('html, body').animate({scrollTop : 0},800);
+			return false;
+		});
+	});
+	</script>
+	{% endblock %}
+
+</body>
+</html>
